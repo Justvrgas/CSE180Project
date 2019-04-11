@@ -7,9 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/justin/Desktop/CSE180Proj/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/justin/Desktop/CSE180Proj/devel/lib:$LD_LIBRARY_PATH"
-export PKG_CONFIG_PATH="/home/justin/Desktop/CSE180Proj/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/justin/Desktop/CSE180Proj/build"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/justin/Desktop/CSE180Proj/devel/share/common-lisp"
-export ROS_PACKAGE_PATH="/home/justin/Desktop/CSE180Proj/src:$ROS_PACKAGE_PATH"
