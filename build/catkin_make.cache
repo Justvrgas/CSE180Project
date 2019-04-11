@@ -1,0 +1,2 @@
+project
+-DCATKIN_DEVEL_PREFIX=/home/justin/Desktop/CSE180Proj/devel -DCMAKE_INSTALL_PREFIX=/home/justin/Desktop/CSE180Proj/install -G Unix Makefiles

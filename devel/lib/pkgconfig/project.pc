@@ -1,0 +1,8 @@
+prefix=/home/justin/Desktop/CSE180Proj/devel
+
+Name: project
+Description: Description of project
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/justin/Desktop/CSE180Proj/devel/lib 
+Requires: 
