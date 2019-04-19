@@ -25,9 +25,14 @@ include_directories(
 
 
 
-add_executable(lasertest src/lasertest.cpp) #lab 1
+add_executable(lasertest src/lasertest.cpp) #laser
+add_executable(moverobot src/moverobot.cpp) #moverobot
 
-target_link_libraries(lasertest ${catkin_LIBRARIES} ) #lab 1
+
+
+target_link_libraries(lasertest ${catkin_LIBRARIES} ) #laser
+target_link_libraries(moverobot ${catkin_LIBRARIES} ) #moverobot
+
 
 
 

@@ -223,6 +223,9 @@ LSB_RELEASE_EXECUTABLE:FILEPATH=/usr/bin/lsb_release
 //Path to a program.
 NOSETESTS:FILEPATH=/usr/bin/nosetests-2.7
 
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python
 
@@ -276,6 +279,9 @@ catkin_DIR:PATH=/opt/ros/kinetic/share/catkin/cmake
 
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/kinetic/share/cpp_common/cmake
+
+//The directory containing a CMake configuration file for dynamic_reconfigure.
+dynamic_reconfigure_DIR:PATH=/opt/ros/kinetic/share/dynamic_reconfigure/cmake
 
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/kinetic/share/gencpp/cmake
@@ -338,8 +344,17 @@ gtest_force_shared_crt:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
+//The directory containing a CMake configuration file for image_geometry.
+image_geometry_DIR:PATH=/opt/ros/kinetic/share/image_geometry/cmake
+
 //The directory containing a CMake configuration file for laser_geometry.
 laser_geometry_DIR:PATH=/opt/ros/kinetic/share/laser_geometry/cmake
+
+//Value Computed by CMake
+leg_detector_BINARY_DIR:STATIC=/home/justin/Desktop/CSE180Proj/build/leg_detector
+
+//Value Computed by CMake
+leg_detector_SOURCE_DIR:STATIC=/home/justin/Desktop/CSE180Proj/src/leg_detector
 
 //Path to a library.
 lib:FILEPATH=/opt/ros/kinetic/lib/liblaser_geometry.so
@@ -352,6 +367,12 @@ message_generation_DIR:PATH=/opt/ros/kinetic/share/message_generation/cmake
 
 //The directory containing a CMake configuration file for message_runtime.
 message_runtime_DIR:PATH=/opt/ros/kinetic/share/message_runtime/cmake
+
+//The directory containing a CMake configuration file for people_msgs.
+people_msgs_DIR:PATH=/opt/ros/kinetic/share/people_msgs/cmake
+
+//The directory containing a CMake configuration file for people_tracking_filter.
+people_tracking_filter_DIR:PATH=/opt/ros/kinetic/share/people_tracking_filter/cmake
 
 //Value Computed by CMake
 project_BINARY_DIR:STATIC=/home/justin/Desktop/CSE180Proj/build/project
@@ -383,8 +404,14 @@ rospy_DIR:PATH=/opt/ros/kinetic/share/rospy/cmake
 //The directory containing a CMake configuration file for rostime.
 rostime_DIR:PATH=/opt/ros/kinetic/share/rostime/cmake
 
+//The directory containing a CMake configuration file for sensor_msgs.
+sensor_msgs_DIR:PATH=/opt/ros/kinetic/share/sensor_msgs/cmake
+
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/kinetic/share/std_msgs/cmake
+
+//The directory containing a CMake configuration file for std_srvs.
+std_srvs_DIR:PATH=/opt/ros/kinetic/share/std_srvs/cmake
 
 //The directory containing a CMake configuration file for tf2.
 tf2_DIR:PATH=/opt/ros/kinetic/share/tf2/cmake
@@ -398,6 +425,12 @@ tf2_py_DIR:PATH=/opt/ros/kinetic/share/tf2_py/cmake
 //The directory containing a CMake configuration file for tf2_ros.
 tf2_ros_DIR:PATH=/opt/ros/kinetic/share/tf2_ros/cmake
 
+//The directory containing a CMake configuration file for tf.
+tf_DIR:PATH=/opt/ros/kinetic/share/tf/cmake
+
+//The directory containing a CMake configuration file for visualization_msgs.
+visualization_msgs_DIR:PATH=/opt/ros/kinetic/share/visualization_msgs/cmake
+
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/kinetic/share/xmlrpcpp/cmake
 
@@ -406,6 +439,74 @@ xmlrpcpp_DIR:PATH=/opt/ros/kinetic/share/xmlrpcpp/cmake
 # INTERNAL cache entries
 ########################
 
+BFL_CFLAGS:INTERNAL=-I/opt/ros/kinetic/include/bfl;-I
+BFL_CFLAGS_I:INTERNAL=
+BFL_CFLAGS_OTHER:INTERNAL=
+BFL_FOUND:INTERNAL=1
+BFL_INCLUDEDIR:INTERNAL=/opt/ros/kinetic/include/bfl
+BFL_INCLUDE_DIRS:INTERNAL=/opt/ros/kinetic/include/bfl
+BFL_LDFLAGS:INTERNAL=-L/opt/ros/kinetic/lib;-lorocos-bfl
+BFL_LDFLAGS_OTHER:INTERNAL=
+BFL_LIBDIR:INTERNAL=/opt/ros/kinetic/lib
+BFL_LIBRARIES:INTERNAL=orocos-bfl
+BFL_LIBRARY_DIRS:INTERNAL=/opt/ros/kinetic/lib
+BFL_LIBS:INTERNAL=
+BFL_LIBS_L:INTERNAL=
+BFL_LIBS_OTHER:INTERNAL=
+BFL_LIBS_PATHS:INTERNAL=
+BFL_PREFIX:INTERNAL=/opt/ros/kinetic
+BFL_STATIC_CFLAGS:INTERNAL=-I/opt/ros/kinetic/include/bfl;-I
+BFL_STATIC_CFLAGS_I:INTERNAL=
+BFL_STATIC_CFLAGS_OTHER:INTERNAL=
+BFL_STATIC_INCLUDE_DIRS:INTERNAL=/opt/ros/kinetic/include/bfl
+BFL_STATIC_LDFLAGS:INTERNAL=-L/opt/ros/kinetic/lib;-lorocos-bfl
+BFL_STATIC_LDFLAGS_OTHER:INTERNAL=
+BFL_STATIC_LIBDIR:INTERNAL=
+BFL_STATIC_LIBRARIES:INTERNAL=orocos-bfl
+BFL_STATIC_LIBRARY_DIRS:INTERNAL=/opt/ros/kinetic/lib
+BFL_STATIC_LIBS:INTERNAL=
+BFL_STATIC_LIBS_L:INTERNAL=
+BFL_STATIC_LIBS_OTHER:INTERNAL=
+BFL_STATIC_LIBS_PATHS:INTERNAL=
+BFL_VERSION:INTERNAL=0.7.0
+BFL_orocos-bfl_INCLUDEDIR:INTERNAL=
+BFL_orocos-bfl_LIBDIR:INTERNAL=
+BFL_orocos-bfl_PREFIX:INTERNAL=
+BFL_orocos-bfl_VERSION:INTERNAL=
+BULLET_CFLAGS:INTERNAL=-I/usr/include/bullet
+BULLET_CFLAGS_I:INTERNAL=
+BULLET_CFLAGS_OTHER:INTERNAL=
+BULLET_FOUND:INTERNAL=1
+BULLET_INCLUDEDIR:INTERNAL=
+BULLET_INCLUDE_DIRS:INTERNAL=/usr/include/bullet
+BULLET_LDFLAGS:INTERNAL=-lBulletSoftBody;-lBulletDynamics;-lBulletCollision;-lLinearMath
+BULLET_LDFLAGS_OTHER:INTERNAL=
+BULLET_LIBDIR:INTERNAL=
+BULLET_LIBRARIES:INTERNAL=BulletSoftBody;BulletDynamics;BulletCollision;LinearMath
+BULLET_LIBRARY_DIRS:INTERNAL=
+BULLET_LIBS:INTERNAL=
+BULLET_LIBS_L:INTERNAL=
+BULLET_LIBS_OTHER:INTERNAL=
+BULLET_LIBS_PATHS:INTERNAL=
+BULLET_PREFIX:INTERNAL=
+BULLET_STATIC_CFLAGS:INTERNAL=-I/usr/include/bullet
+BULLET_STATIC_CFLAGS_I:INTERNAL=
+BULLET_STATIC_CFLAGS_OTHER:INTERNAL=
+BULLET_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/bullet
+BULLET_STATIC_LDFLAGS:INTERNAL=-lBulletSoftBody;-lBulletDynamics;-lBulletCollision;-lLinearMath
+BULLET_STATIC_LDFLAGS_OTHER:INTERNAL=
+BULLET_STATIC_LIBDIR:INTERNAL=
+BULLET_STATIC_LIBRARIES:INTERNAL=BulletSoftBody;BulletDynamics;BulletCollision;LinearMath
+BULLET_STATIC_LIBRARY_DIRS:INTERNAL=
+BULLET_STATIC_LIBS:INTERNAL=
+BULLET_STATIC_LIBS_L:INTERNAL=
+BULLET_STATIC_LIBS_OTHER:INTERNAL=
+BULLET_STATIC_LIBS_PATHS:INTERNAL=
+BULLET_VERSION:INTERNAL=2.83
+BULLET_bullet_INCLUDEDIR:INTERNAL=
+BULLET_bullet_LIBDIR:INTERNAL=
+BULLET_bullet_PREFIX:INTERNAL=
+BULLET_bullet_VERSION:INTERNAL=
 //catkin environment
 CATKIN_ENV:INTERNAL=/home/justin/Desktop/CSE180Proj/build/catkin_generated/env_cached.sh
 CATKIN_TEST_RESULTS_DIR:INTERNAL=/home/justin/Desktop/CSE180Proj/build/test_results
@@ -542,6 +643,8 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.29.1()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python][v2.7.12()]
 //Details about finding Threads
@@ -566,10 +669,15 @@ GTEST_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 GTEST_MAIN_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GTEST_MAIN_LIBRARY_DEBUG
 GTEST_MAIN_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //This needs to be in PYTHONPATH when 'setup.py install' is called.
 //  And it needs to match.  But setuptools won't tell us where
 // it will install things.
 PYTHON_INSTALL_DIR:INTERNAL=lib/python2.7/dist-packages
+__pkg_config_checked_BFL:INTERNAL=1
+__pkg_config_checked_BULLET:INTERNAL=1
+prefix_result:INTERNAL=
 

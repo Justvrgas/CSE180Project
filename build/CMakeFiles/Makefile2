@@ -390,6 +390,7 @@ clean: gtest/gtest/CMakeFiles/gtest_main.dir/clean
 # Directory level rules for directory project
 
 # Convenience name for "all" pass in the directory.
+project/all: project/CMakeFiles/moverobot.dir/all
 project/all: project/CMakeFiles/lasertest.dir/all
 
 .PHONY : project/all
@@ -402,6 +403,7 @@ project/clean: project/CMakeFiles/actionlib_generate_messages_cpp.dir/clean
 project/clean: project/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/clean
 project/clean: project/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean
 project/clean: project/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean
+project/clean: project/CMakeFiles/moverobot.dir/clean
 project/clean: project/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/clean
 project/clean: project/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/clean
 project/clean: project/CMakeFiles/std_msgs_generate_messages_py.dir/clean
@@ -660,6 +662,43 @@ project/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean:
 
 # clean rule for target.
 clean: project/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target project/CMakeFiles/moverobot.dir
+
+# All Build rule for target.
+project/CMakeFiles/moverobot.dir/all:
+	$(MAKE) -f project/CMakeFiles/moverobot.dir/build.make project/CMakeFiles/moverobot.dir/depend
+	$(MAKE) -f project/CMakeFiles/moverobot.dir/build.make project/CMakeFiles/moverobot.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/justin/Desktop/CSE180Proj/build/CMakeFiles --progress-num=14,15 "Built target moverobot"
+.PHONY : project/CMakeFiles/moverobot.dir/all
+
+# Include target in all.
+all: project/CMakeFiles/moverobot.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+project/CMakeFiles/moverobot.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/justin/Desktop/CSE180Proj/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 project/CMakeFiles/moverobot.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/justin/Desktop/CSE180Proj/build/CMakeFiles 0
+.PHONY : project/CMakeFiles/moverobot.dir/rule
+
+# Convenience name for target.
+moverobot: project/CMakeFiles/moverobot.dir/rule
+
+.PHONY : moverobot
+
+# clean rule for target.
+project/CMakeFiles/moverobot.dir/clean:
+	$(MAKE) -f project/CMakeFiles/moverobot.dir/build.make project/CMakeFiles/moverobot.dir/clean
+.PHONY : project/CMakeFiles/moverobot.dir/clean
+
+# clean rule for target.
+clean: project/CMakeFiles/moverobot.dir/clean
 
 .PHONY : clean
 

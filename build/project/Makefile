@@ -271,6 +271,21 @@ actionlib_msgs_generate_messages_eus/fast:
 .PHONY : actionlib_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
+project/CMakeFiles/moverobot.dir/rule:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f CMakeFiles/Makefile2 project/CMakeFiles/moverobot.dir/rule
+.PHONY : project/CMakeFiles/moverobot.dir/rule
+
+# Convenience name for target.
+moverobot: project/CMakeFiles/moverobot.dir/rule
+
+.PHONY : moverobot
+
+# fast build rule for target.
+moverobot/fast:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/moverobot.dir/build.make project/CMakeFiles/moverobot.dir/build
+.PHONY : moverobot/fast
+
+# Convenience name for target.
 project/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f CMakeFiles/Makefile2 project/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule
 .PHONY : project/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule
@@ -732,6 +747,33 @@ src/lasertest.cpp.s:
 	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/lasertest.dir/build.make project/CMakeFiles/lasertest.dir/src/lasertest.cpp.s
 .PHONY : src/lasertest.cpp.s
 
+src/moverobot.o: src/moverobot.cpp.o
+
+.PHONY : src/moverobot.o
+
+# target to build an object file
+src/moverobot.cpp.o:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/moverobot.dir/build.make project/CMakeFiles/moverobot.dir/src/moverobot.cpp.o
+.PHONY : src/moverobot.cpp.o
+
+src/moverobot.i: src/moverobot.cpp.i
+
+.PHONY : src/moverobot.i
+
+# target to preprocess a source file
+src/moverobot.cpp.i:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/moverobot.dir/build.make project/CMakeFiles/moverobot.dir/src/moverobot.cpp.i
+.PHONY : src/moverobot.cpp.i
+
+src/moverobot.s: src/moverobot.cpp.s
+
+.PHONY : src/moverobot.s
+
+# target to generate assembly for a file
+src/moverobot.cpp.s:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/moverobot.dir/build.make project/CMakeFiles/moverobot.dir/src/moverobot.cpp.s
+.PHONY : src/moverobot.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -751,6 +793,7 @@ help:
 	@echo "... actionlib_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_eus"
 	@echo "... edit_cache"
+	@echo "... moverobot"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
@@ -784,6 +827,9 @@ help:
 	@echo "... src/lasertest.o"
 	@echo "... src/lasertest.i"
 	@echo "... src/lasertest.s"
+	@echo "... src/moverobot.o"
+	@echo "... src/moverobot.i"
+	@echo "... src/moverobot.s"
 .PHONY : help
 
 

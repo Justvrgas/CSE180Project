@@ -1,0 +1,8 @@
+prefix=/home/justin/Desktop/CSE180Proj/install
+
+Name: leg_detector
+Description: Description of leg_detector
+Version: 1.1.2
+Cflags: -I/home/justin/Desktop/CSE180Proj/install/include
+Libs: -L/home/justin/Desktop/CSE180Proj/install/lib 
+Requires: dynamic_reconfigure geometry_msgs message_filters people_msgs people_tracking_filter roscpp sensor_msgs std_msgs tf visualization_msgs

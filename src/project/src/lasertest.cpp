@@ -72,12 +72,12 @@ bool CheckForTable(vector<float> values){
 }
 
 
-int CalculateDistance(int index, int laser){
+// int CalculateDistance(int index, int laser){
 
-    int x_mailbox = laser
+//     int x_mailbox = laser;
 
 
-}
+// }
 
 
 
@@ -128,7 +128,7 @@ int main(int argc,char ** argv) {
 
                        laserdist = laser.ranges[original_index];
 
-                       CalculateDistance(original_index, laserdist);                    
+                      // CalculateDistance(original_index, laserdist);                    
 
                        ROS_INFO_STREAM("MAILBOC COORDINATES:"); 
 
