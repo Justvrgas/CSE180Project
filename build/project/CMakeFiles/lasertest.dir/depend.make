@@ -5,6 +5,7 @@ project/CMakeFiles/lasertest.dir/src/lasertest.cpp.o: /home/justin/Desktop/CSE18
 project/CMakeFiles/lasertest.dir/src/lasertest.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Point.h
 project/CMakeFiles/lasertest.dir/src/lasertest.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Pose.h
 project/CMakeFiles/lasertest.dir/src/lasertest.cpp.o: /opt/ros/kinetic/include/geometry_msgs/PoseWithCovariance.h
+project/CMakeFiles/lasertest.dir/src/lasertest.cpp.o: /opt/ros/kinetic/include/geometry_msgs/PoseWithCovarianceStamped.h
 project/CMakeFiles/lasertest.dir/src/lasertest.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Quaternion.h
 project/CMakeFiles/lasertest.dir/src/lasertest.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Twist.h
 project/CMakeFiles/lasertest.dir/src/lasertest.cpp.o: /opt/ros/kinetic/include/geometry_msgs/TwistWithCovariance.h

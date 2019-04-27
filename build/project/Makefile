@@ -316,6 +316,21 @@ tf2_msgs_generate_messages_lisp/fast:
 .PHONY : tf2_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
+project/CMakeFiles/gotospecpoint.dir/rule:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f CMakeFiles/Makefile2 project/CMakeFiles/gotospecpoint.dir/rule
+.PHONY : project/CMakeFiles/gotospecpoint.dir/rule
+
+# Convenience name for target.
+gotospecpoint: project/CMakeFiles/gotospecpoint.dir/rule
+
+.PHONY : gotospecpoint
+
+# fast build rule for target.
+gotospecpoint/fast:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/gotospecpoint.dir/build.make project/CMakeFiles/gotospecpoint.dir/build
+.PHONY : gotospecpoint/fast
+
+# Convenience name for target.
 project/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
 	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f CMakeFiles/Makefile2 project/CMakeFiles/std_msgs_generate_messages_py.dir/rule
 .PHONY : project/CMakeFiles/std_msgs_generate_messages_py.dir/rule
@@ -464,6 +479,21 @@ geometry_msgs_generate_messages_cpp: project/CMakeFiles/geometry_msgs_generate_m
 geometry_msgs_generate_messages_cpp/fast:
 	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make project/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
 .PHONY : geometry_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+project/CMakeFiles/lasertest2.dir/rule:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f CMakeFiles/Makefile2 project/CMakeFiles/lasertest2.dir/rule
+.PHONY : project/CMakeFiles/lasertest2.dir/rule
+
+# Convenience name for target.
+lasertest2: project/CMakeFiles/lasertest2.dir/rule
+
+.PHONY : lasertest2
+
+# fast build rule for target.
+lasertest2/fast:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/lasertest2.dir/build.make project/CMakeFiles/lasertest2.dir/build
+.PHONY : lasertest2/fast
 
 # Convenience name for target.
 project/CMakeFiles/lasertest.dir/rule:
@@ -720,6 +750,33 @@ tf2_msgs_generate_messages_eus/fast:
 	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/tf2_msgs_generate_messages_eus.dir/build.make project/CMakeFiles/tf2_msgs_generate_messages_eus.dir/build
 .PHONY : tf2_msgs_generate_messages_eus/fast
 
+src/gotospecpoint.o: src/gotospecpoint.cpp.o
+
+.PHONY : src/gotospecpoint.o
+
+# target to build an object file
+src/gotospecpoint.cpp.o:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/gotospecpoint.dir/build.make project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o
+.PHONY : src/gotospecpoint.cpp.o
+
+src/gotospecpoint.i: src/gotospecpoint.cpp.i
+
+.PHONY : src/gotospecpoint.i
+
+# target to preprocess a source file
+src/gotospecpoint.cpp.i:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/gotospecpoint.dir/build.make project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.i
+.PHONY : src/gotospecpoint.cpp.i
+
+src/gotospecpoint.s: src/gotospecpoint.cpp.s
+
+.PHONY : src/gotospecpoint.s
+
+# target to generate assembly for a file
+src/gotospecpoint.cpp.s:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/gotospecpoint.dir/build.make project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.s
+.PHONY : src/gotospecpoint.cpp.s
+
 src/lasertest.o: src/lasertest.cpp.o
 
 .PHONY : src/lasertest.o
@@ -746,6 +803,33 @@ src/lasertest.s: src/lasertest.cpp.s
 src/lasertest.cpp.s:
 	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/lasertest.dir/build.make project/CMakeFiles/lasertest.dir/src/lasertest.cpp.s
 .PHONY : src/lasertest.cpp.s
+
+src/lasertest2.o: src/lasertest2.cpp.o
+
+.PHONY : src/lasertest2.o
+
+# target to build an object file
+src/lasertest2.cpp.o:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/lasertest2.dir/build.make project/CMakeFiles/lasertest2.dir/src/lasertest2.cpp.o
+.PHONY : src/lasertest2.cpp.o
+
+src/lasertest2.i: src/lasertest2.cpp.i
+
+.PHONY : src/lasertest2.i
+
+# target to preprocess a source file
+src/lasertest2.cpp.i:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/lasertest2.dir/build.make project/CMakeFiles/lasertest2.dir/src/lasertest2.cpp.i
+.PHONY : src/lasertest2.cpp.i
+
+src/lasertest2.s: src/lasertest2.cpp.s
+
+.PHONY : src/lasertest2.s
+
+# target to generate assembly for a file
+src/lasertest2.cpp.s:
+	cd /home/justin/Desktop/CSE180Proj/build && $(MAKE) -f project/CMakeFiles/lasertest2.dir/build.make project/CMakeFiles/lasertest2.dir/src/lasertest2.cpp.s
+.PHONY : src/lasertest2.cpp.s
 
 src/moverobot.o: src/moverobot.cpp.o
 
@@ -796,6 +880,7 @@ help:
 	@echo "... moverobot"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
+	@echo "... gotospecpoint"
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... actionlib_generate_messages_eus"
 	@echo "... roscpp_generate_messages_py"
@@ -806,6 +891,7 @@ help:
 	@echo "... geometry_msgs_generate_messages_eus"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... geometry_msgs_generate_messages_cpp"
+	@echo "... lasertest2"
 	@echo "... lasertest"
 	@echo "... roscpp_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_py"
@@ -824,9 +910,15 @@ help:
 	@echo "... install"
 	@echo "... tf2_msgs_generate_messages_py"
 	@echo "... tf2_msgs_generate_messages_eus"
+	@echo "... src/gotospecpoint.o"
+	@echo "... src/gotospecpoint.i"
+	@echo "... src/gotospecpoint.s"
 	@echo "... src/lasertest.o"
 	@echo "... src/lasertest.i"
 	@echo "... src/lasertest.s"
+	@echo "... src/lasertest2.o"
+	@echo "... src/lasertest2.i"
+	@echo "... src/lasertest2.s"
 	@echo "... src/moverobot.o"
 	@echo "... src/moverobot.i"
 	@echo "... src/moverobot.s"

@@ -162,15 +162,17 @@
 
 
 #include <ros/ros.h>
+#include <vector>
 #include <sensor_msgs/LaserScan.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <nav_msgs/Odometry.h>
 #include <iostream>
 #include <cmath>
 
+using namespace std;
+
 
 struct Sample{
-
-public:
 
   int   original_index;
   float laser_range;
@@ -181,15 +183,15 @@ public:
 
 //testing this
 sensor_msgs::LaserScan laser;    
-nav_msgs::PoseWithCovarianceStamped robot_pose;               
+geometry_msgs::PoseWithCovarianceStamped robot_pose;               
 
 void laserscanCB(const sensor_msgs::LaserScan::ConstPtr &msg) {
     laser = *msg;
     return;
 }
 
-void odomCB(const nav_msgs::Odometry::ConstPtr &msg) {
-    curr_robot_pose = *msg;
+void odomCB(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg) {
+    robot_pose = *msg;
     return;
 }
 
@@ -246,24 +248,19 @@ bool CheckForTable(vector<Sample> values){
 }
 
 
-<<<<<<< HEAD
-// int CalculateDistance(int index, int laser){
 
-//     int x_mailbox = laser;
-=======
 int CalculateDistance(vector<Sample> values){
 
     int rsize = values.size(); //length of cluster vector	
     float angle_increment = 0.0065540750511;
     float theta = 0;
-    theta = laser.min_angle + values[rsize/2].original_index * angle_increment;
+    theta = laser.angle_min + values[rsize/2].original_index * angle_increment;
     
-    float x = values[rsize/2].laser_range * std::cos(theta) + robot_pose.pose.position.x;
-    float y = values[rsize/2].laser_range * std::sin(theta) + robot_pose.pose.position.y;
->>>>>>> 6408f5e2aa3cee36aef27d985fbdd42ba8504958
+    float x = values[rsize/2].laser_range * std::cos(theta) + robot_pose.pose.pose.position.x;
+    float y = values[rsize/2].laser_range * std::sin(theta) + robot_pose.pose.pose.position.y;
 
 
-// }
+ }
 
 
 
@@ -308,19 +305,19 @@ int main(int argc,char ** argv) {
                    if (CheckForMailbox(values)){
                        ROS_INFO_STREAM("MAILBOX FOUND");
 
-<<<<<<< HEAD
+
                        for(int i = 0; i < laser.ranges.size(); i++){
-                            if(laser.ranges[i] == values[i]){
+                            if(laser.ranges[i] == values[i].laser_range){
                                     original_index = i;
                             }   
                        }
 
                        laserdist = laser.ranges[original_index];
 
-                      // CalculateDistance(original_index, laserdist);                    
-=======
+                     // CalculateDistance(original_index, laserdist);                    
+
                        float mail_loc = CalculateDistance(values);                    
->>>>>>> 6408f5e2aa3cee36aef27d985fbdd42ba8504958
+
 
                        ROS_INFO_STREAM("MAILBOC COORDINATES:"); 
 

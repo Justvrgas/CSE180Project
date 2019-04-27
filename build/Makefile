@@ -413,6 +413,19 @@ tf2_msgs_generate_messages_lisp/fast:
 .PHONY : tf2_msgs_generate_messages_lisp/fast
 
 #=============================================================================
+# Target rules for targets named gotospecpoint
+
+# Build rule for target.
+gotospecpoint: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gotospecpoint
+.PHONY : gotospecpoint
+
+# fast build rule for target.
+gotospecpoint/fast:
+	$(MAKE) -f project/CMakeFiles/gotospecpoint.dir/build.make project/CMakeFiles/gotospecpoint.dir/build
+.PHONY : gotospecpoint/fast
+
+#=============================================================================
 # Target rules for targets named std_msgs_generate_messages_py
 
 # Build rule for target.
@@ -541,6 +554,19 @@ geometry_msgs_generate_messages_cpp: cmake_check_build_system
 geometry_msgs_generate_messages_cpp/fast:
 	$(MAKE) -f project/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make project/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
 .PHONY : geometry_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named lasertest2
+
+# Build rule for target.
+lasertest2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lasertest2
+.PHONY : lasertest2
+
+# fast build rule for target.
+lasertest2/fast:
+	$(MAKE) -f project/CMakeFiles/lasertest2.dir/build.make project/CMakeFiles/lasertest2.dir/build
+.PHONY : lasertest2/fast
 
 #=============================================================================
 # Target rules for targets named lasertest
@@ -795,6 +821,7 @@ help:
 	@echo "... moverobot"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
+	@echo "... gotospecpoint"
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... actionlib_generate_messages_eus"
 	@echo "... roscpp_generate_messages_py"
@@ -805,6 +832,7 @@ help:
 	@echo "... geometry_msgs_generate_messages_eus"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... geometry_msgs_generate_messages_cpp"
+	@echo "... lasertest2"
 	@echo "... lasertest"
 	@echo "... roscpp_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_py"
