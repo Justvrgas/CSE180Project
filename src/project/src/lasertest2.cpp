@@ -24,7 +24,7 @@ void laserscanCB(const sensor_msgs::LaserScan::ConstPtr &msg) {
     return;
 }
 
-void odomCB(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg) {
+void amclCB(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg) {
     robot_pose = *msg;
     return;
 }
@@ -32,8 +32,6 @@ void odomCB(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg) {
 bool MailCheck(vector<Sample> data){
 
     int datasize = data.size(); //length of cluster vector
-
-   ROS_INFO_STREAM(datasize);
 
     if(datasize == 0){
         return false;
@@ -43,7 +41,7 @@ bool MailCheck(vector<Sample> data){
     float mailbox = .60;
 
  
-    
+    //calculation to get size of the array in meters
     float alpha = (datasize-1)*angle_increment;
     float length = data[ datasize - 1 ].laser_range*asinf(alpha/2);
     float objectwidth = 2*length;
@@ -61,24 +59,19 @@ pair<float, float> Object_Points(vector<Sample> data){
 
   int datasize = data.size();
 
-  ROS_INFO_STREAM("End Index: " << data[datasize - 1].original_index);
-  ROS_INFO_STREAM("Middle Index: " << data[datasize/2].original_index);
-  ROS_INFO_STREAM("Start Index: " << data[0].original_index);
-
   float angle_increment = 0.0065540750511;
   float theta = 0;
   float mid_laser_dist = data[datasize/2].laser_range;
-
-  ROS_INFO_STREAM("mid laser dist: " << mid_laser_dist);
-
   theta = laser.angle_min + data[datasize/2].original_index * angle_increment;
+
+  //calculates the position of the robot by converting polar coordinates to cartesian
   float x = mid_laser_dist * std::cos(theta) + robot_pose.pose.pose.position.x;
   float y = mid_laser_dist * std::sin(theta) + robot_pose.pose.pose.position.y;
 
   ROS_INFO_STREAM("X:" << x);
   ROS_INFO_STREAM("Y:" << y);
 
-  return make_pair(x,y);
+  return make_pair(x,y); //returns the pair coordinates 
 
 }
 
@@ -88,13 +81,13 @@ int main(int argc,char ** argv) {
 	ros::init(argc,argv,"lasertest");
 	ros::NodeHandle nh;
 
-  ros::Subscriber odom_sub = nh.subscribe("/amcl_pose", 1000, &odomCB);
+  ros::Subscriber odom_sub = nh.subscribe("/amcl_pose", 1000, &amclCB);
   ros::Subscriber laserscanning = nh.subscribe("/scan", 1000, &laserscanCB);
 
   
-  vector<Sample> data;
+  vector<Sample> data; //contains lasers that are closely together and also stores their original indeces
   Sample sample;
-  vector< pair<float, float> > Object_Position;
+  vector< pair<float, float> > Object_Position;//a vector that contains the positions of the objects
  	
   ros::Rate r(1.0);
 
@@ -114,24 +107,28 @@ int main(int argc,char ** argv) {
       }
 
       else{
+
+        //create an if to check if points calculated from the steps below have already been seen to not include them into the array.
         
         if(MailCheck(data)){
           ROS_INFO_STREAM("YO THERES A MAILBOX HERE DAWG!");   
 
-          pair<float, float> coord = Object_Points(data);
-          Object_Position.push_back(coord);
+        
+
+          pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
+          Object_Position.push_back(coord); //add the new coordinate point into a vector
           
 
           ROS_INFO_STREAM("MAILBOX COORDINATES: (" << coord.first << ", " << coord.second << ")");      
         }
-        ROS_INFO_STREAM("This is new size: " << data.size());
+
         data.clear();
 
-      }       
+      }  
+
+
     }
   
-           
-
     r.sleep();
 
   }
