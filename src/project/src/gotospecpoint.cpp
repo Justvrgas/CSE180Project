@@ -22,8 +22,7 @@ int main(int argc, char** argv){
   goal.target_pose.header.stamp = ros::Time::now();
 
   goal.target_pose.pose.position.x = -7.5;
-  goal.target_pose.pose.position.y =  -4.5;
-  goal.target_pose.pose.orientation.w = 1.0;
+  goal.target_pose.pose.position.y =  -7.5;
 
   ROS_INFO("Moving to point");
   ROS_INFO_STREAM("X: " << goal.target_pose.pose.position.x);
@@ -36,10 +35,11 @@ int main(int argc, char** argv){
 
     if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
       ROS_INFO("Hooray, made it to the goal point");
+      break;
     }
     else{
       ROS_INFO("The base failed to move forward 1 meter for some reason sending next target");
-      break;
+      ac.sendGoal(goal);
     }
   }
 

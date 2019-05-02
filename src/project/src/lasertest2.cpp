@@ -111,14 +111,9 @@ int main(int argc,char ** argv) {
         //create an if to check if points calculated from the steps below have already been seen to not include them into the array.
         
         if(MailCheck(data)){
-          ROS_INFO_STREAM("YO THERES A MAILBOX HERE DAWG!");   
-
-        
-
+          ROS_INFO_STREAM("MAILBOX SPOTTED!");   
           pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
           Object_Position.push_back(coord); //add the new coordinate point into a vector
-          
-
           ROS_INFO_STREAM("MAILBOX COORDINATES: (" << coord.first << ", " << coord.second << ")");      
         }
 
