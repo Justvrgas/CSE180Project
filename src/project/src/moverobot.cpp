@@ -22,7 +22,7 @@ int main(int argc, char** argv){
 
   
 
-  //we'll send a goal to the robot to move 1 meter forward
+  //we'll send a random goal point
   goal.target_pose.header.frame_id = "map";
   goal.target_pose.header.stamp = ros::Time::now();
 
