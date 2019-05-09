@@ -28,14 +28,16 @@ include_directories(
 add_executable(lasertest src/lasertest.cpp) #laser
 add_executable(lasertest2 src/lasertest2.cpp) #laser2
 add_executable(moverobot src/moverobot.cpp) #moverobot
-add_executable(gotospecpoint src/gotospecpoint.cpp) #moverobot
+add_executable(gotospecpoint src/gotospecpoint.cpp) #gotospecpoint
+add_executable(final src/final.cpp) #final
 
 
 
 target_link_libraries(lasertest ${catkin_LIBRARIES} ) #laser
 target_link_libraries(lasertest2 ${catkin_LIBRARIES} ) #laser2
 target_link_libraries(moverobot ${catkin_LIBRARIES} ) #moverobot
-target_link_libraries(gotospecpoint ${catkin_LIBRARIES} ) #moverobot
+target_link_libraries(gotospecpoint ${catkin_LIBRARIES} ) #gotospecpoint
+target_link_libraries(final ${catkin_LIBRARIES} ) #final
 
 
 

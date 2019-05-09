@@ -9,6 +9,7 @@
 #include <nav_msgs/Odometry.h>
 #include <iostream>
 #include <cmath>
+#include <std_msgs/Bool.h>
 
 using namespace std;
 
@@ -22,6 +23,8 @@ struct Sample{
 
 sensor_msgs::LaserScan laser;    
 geometry_msgs::PoseWithCovarianceStamped robot_pose;               
+std_msgs::Bool beginscan;
+std_msgs::Bool detected;
 
 void laserscanCB(const sensor_msgs::LaserScan::ConstPtr &msg) {
     laser = *msg;
@@ -30,6 +33,11 @@ void laserscanCB(const sensor_msgs::LaserScan::ConstPtr &msg) {
 
 void amclCB(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg) {
     robot_pose = *msg;
+    return;
+}
+
+void arrivedCB(const std_msgs::BoolConstPtr &msg) {
+    beginscan = *msg;
     return;
 }
 
@@ -86,8 +94,6 @@ bool TableCheck(vector<Sample> data){
       return false;
   }
 
-
-
 }
 
 
@@ -138,61 +144,96 @@ pair<float, float> Object_Points(vector<Sample> data){
 
 int main(int argc,char ** argv) {
 
-	ros::init(argc,argv,"lasertest");
+	ros::init(argc,argv,"lasertest2");
 	ros::NodeHandle nh;
 
   ros::Subscriber odom_sub = nh.subscribe("/amcl_pose", 1000, &amclCB);
   ros::Subscriber laserscanning = nh.subscribe("/scan", 1000, &laserscanCB);
+  //recieves a bool from moverobot that it has arrived from its location
+  ros::Subscriber scan = nh.subscribe("/arrived", 1000, &arrivedCB);
+  //sends a bool to moverobot to tell it either found a mailbox or it didnt (if it did it will make the robot turn 180 degrees and check again)
+  ros::Publisher object_detected = nh.advertise<std_msgs::Bool>("/object", 1000);
 
-  
+
+  //variables//
   vector<Sample> data; //contains lasers that are closely together and also stores their original indeces
   Sample sample;
   vector< pair<float, float> > Object_Position;//a vector that contains the positions of the objects
+  int count;
  	
+
   ros::Rate r(1.0);
 
   while (ros::ok()){
     
     ros::spinOnce();
-    
-    for(int i = 0; i < laser.ranges.size(); i++){
-      
-      //if values are close together insert into array
-      if(abs(laser.ranges[i] - laser.ranges[i+1]) <= 0.1 && laser.ranges[i] < 5 && laser.ranges[i+1] < 5){
 
-        sample.original_index = i;
-        sample.laser_range = laser.ranges[i];
-        data.push_back(sample);
+    //moverobot has reached a point being the scan
+    if(beginscan.data = true){
+
+      for(int i = 0; i < laser.ranges.size(); i++){
+        
+        //if values are close together insert into array
+        if(abs(laser.ranges[i] - laser.ranges[i+1]) <= 0.2 && laser.ranges[i] < 3 && laser.ranges[i+1] < 3){
+
+          sample.original_index = i;
+          sample.laser_range = laser.ranges[i];
+          data.push_back(sample);
+
+        }
+
+        //cut off the inputed sample vector
+        else{
+
+          //check if the sample vector is either a mailbox or a table
+          if(MailCheck(data)){
+            ROS_INFO_STREAM("MAILBOX SPOTTED!");  
+            count++;
+
+            //if when rotated the mailbox is detected twice then calculate the posituion of the mailbox
+            if(count == 2){
+              // pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
+              // Object_Position.push_back(coord); //add the new coordinate point into a vector
+              // ROS_INFO_STREAM("ESTIMATED MAILBOX COORDINATES: (" << coord.first << ", " << coord.second << ")");
+              break;
+            }
+
+            //tell moverobot to turn 180  
+            detected.data = true;
+            object_detected.publish(detected);      
+          }
+
+          else if (TableCheck(data)){
+            ROS_INFO("TABLE SPOTTED");
+            count++;
+
+            //if when rotated the table is detected twice then calculate the posituion of the table
+            if(count == 2){
+              // pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
+              // Object_Position.push_back(coord); //add the new coordinate point into a vector
+              // ROS_INFO_STREAM("ESTIMATED TABLE COORDINATES: (" << coord.first << ", " << coord.second << ")");
+              break;
+            }
+
+            //tell moverobot to turn 180  
+            detected.data = true;
+            object_detected.publish(detected);     
+          }
+          
+          else{
+            //nothing detected continue on
+            detected.data = false;
+            object_detected.publish(detected);
+            //clear the sample array and continue checking
+            data.clear();
+          }
+
+        }  
 
       }
 
-      //cut off the inputed sample vector
-      else{
-
-        //check if the sample vector is either a mailbox or a table
-        if(MailCheck(data)){
-          ROS_INFO_STREAM("MAILBOX SPOTTED!");   
-          // pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
-          // Object_Position.push_back(coord); //add the new coordinate point into a vector
-          // ROS_INFO_STREAM("ESTIMATED MAILBOX COORDINATES: (" << coord.first << ", " << coord.second << ")");      
-        }
-
-        else if (TableCheck(data)){
-          ROS_INFO("TABLE SPOTTED");
-          // pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
-          // Object_Position.push_back(coord); //add the new coordinate point into a vector
-          // ROS_INFO_STREAM("ESTIMATED TABLE COORDINATES: (" << coord.first << ", " << coord.second << ")"); 
-        }
-        
-        //clear the sample array and continue checking
-        data.clear();
-
-      }  
-
-
     }
-  
-    r.sleep();
+      r.sleep();
 
   }
 

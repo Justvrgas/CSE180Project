@@ -28,7 +28,11 @@ project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/i
 project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Point.h
 project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Pose.h
 project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/geometry_msgs/PoseStamped.h
+project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/geometry_msgs/PoseWithCovariance.h
+project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/geometry_msgs/PoseWithCovarianceStamped.h
 project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Quaternion.h
+project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Twist.h
+project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Vector3.h
 project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/move_base_msgs/MoveBaseAction.h
 project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/move_base_msgs/MoveBaseActionFeedback.h
 project/CMakeFiles/gotospecpoint.dir/src/gotospecpoint.cpp.o: /opt/ros/kinetic/include/move_base_msgs/MoveBaseActionGoal.h
