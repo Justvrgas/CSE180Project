@@ -70,7 +70,7 @@ bool TableCheck(vector<Sample> data){
   }
 
   float angle_increment = 0.0065540750511;
-  float mailbox = .15566;
+  float tableleg = .15566;
 
 
   //calculation to get size of the array in meters
@@ -78,7 +78,7 @@ bool TableCheck(vector<Sample> data){
   float length = data[ datasize - 1 ].laser_range*asinf(alpha/2);
   float objectwidth = 2*length;
 
-  if( abs(objectwidth - mailbox) <= 0.2){
+  if( abs(objectwidth - tableleg) <= 0.2){
       return true;
   }
 
@@ -100,36 +100,10 @@ pair<float, float> Object_Points(vector<Sample> data){
   float angle_increment = 0.0065540750511;
   float theta = 0;
   float mid_laser_dist = data[object_angle].laser_range;
-  float quat_x = robot_pose.pose.pose.orientation.x;				//Extracting current Quaternion Values of Robot
-	float quat_y = robot_pose.pose.pose.orientation.y;
-	float quat_z = robot_pose.pose.pose.orientation.z;
-	float quat_w = robot_pose.pose.pose.orientation.w;
-  tf::Quaternion qft(quat_x, quat_y, quat_z, quat_w);
-
-  float theta_temp = tf::getYaw(qft);
-
-  if(object_angle > 360 && theta_temp > 0){
-    theta = tf::getYaw(qft) - (object_angle - 360) * angle_increment;
-  }
-
-  else if(object_angle > 360 && theta_temp < 0){
-     theta = tf::getYaw(qft ) - (object_angle - 360) * angle_increment;
-  }
-
-  else if(object_angle < 360 && theta_temp >= 0){
-     theta = tf::getYaw(qft) + (360 - object_angle) * angle_increment;
-  }
-
-  else{
-     theta = tf::getYaw(qft) + (360 - object_angle) * angle_increment;
-  }
-
-  //calculates the position of the robot by converting polar coordinates to cartesian
-  float x = (mid_laser_dist * std::cos(theta)) + robot_pose.pose.pose.position.x;
-  float y = (mid_laser_dist * std::sin(theta)) + robot_pose.pose.pose.position.y;
-
-  ROS_INFO_STREAM("X:" << x);
-  ROS_INFO_STREAM("Y:" << y);
+  
+  theta = laser.angle_min + data[datasize/2].original_index * angle_increment;
+  float x = mid_laser_dist * std::cos(theta) + robot_pose.pose.pose.position.x;
+  float y = mid_laser_dist * std::sin(theta) + robot_pose.pose.pose.position.y;
 
   return make_pair(x,y); //returns the pair coordinates 
 
@@ -138,7 +112,7 @@ pair<float, float> Object_Points(vector<Sample> data){
 
 int main(int argc,char ** argv) {
 
-	ros::init(argc,argv,"lasertest");
+	ros::init(argc,argv,"lasertest2");
 	ros::NodeHandle nh;
 
   ros::Subscriber odom_sub = nh.subscribe("/amcl_pose", 1000, &amclCB);
@@ -148,17 +122,20 @@ int main(int argc,char ** argv) {
   vector<Sample> data; //contains lasers that are closely together and also stores their original indeces
   Sample sample;
   vector< pair<float, float> > Object_Position;//a vector that contains the positions of the objects
- 	
+  vector< pair<float, float> > Guaranteed_Pos;
+ 	int count = 0;
   ros::Rate r(1.0);
 
   while (ros::ok()){
     
     ros::spinOnce();
+
+  
     
     for(int i = 0; i < laser.ranges.size(); i++){
       
       //if values are close together insert into array
-      if(abs(laser.ranges[i] - laser.ranges[i+1]) <= 0.1 && laser.ranges[i] < 5 && laser.ranges[i+1] < 5){
+      if(abs(laser.ranges[i] - laser.ranges[i+1]) <= 0.1 && laser.ranges[i] < 3.5 && laser.ranges[i+1] < 3.5){
 
         sample.original_index = i;
         sample.laser_range = laser.ranges[i];
@@ -171,20 +148,90 @@ int main(int argc,char ** argv) {
 
         //check if the sample vector is either a mailbox or a table
         if(MailCheck(data)){
-          ROS_INFO_STREAM("MAILBOX SPOTTED!");   
-          // pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
-          // Object_Position.push_back(coord); //add the new coordinate point into a vector
-          // ROS_INFO_STREAM("ESTIMATED MAILBOX COORDINATES: (" << coord.first << ", " << coord.second << ")");      
+          ROS_INFO_STREAM("MAILBOX");
+          ROS_INFO_STREAM("Coordinate vector size: " << Object_Position.size());
+          pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
+          Object_Position.push_back(coord); //add the new coordinate point into a vector
+
+        if(Guaranteed_Pos.size() > 0){
+
+          for(int i = 0; i < Guaranteed_Pos.size(); i++){
+
+            if( ( abs(coord.first - Guaranteed_Pos[i].first) < .5 && abs(coord.second - Guaranteed_Pos[i].second) < .5) ){
+              break;
+            }
+
+          }
+
+        }
+
+        else{
+
+          for(int i = 0; i < Object_Position.size(); i++){
+
+            if( ( abs(coord.first - Object_Position[i].first) < 1 && abs(coord.second - Object_Position[i].second) < 1) ){
+              count++;
+              ROS_INFO_STREAM("Curr count" << count);
+            }
+
+            else if(count == 3){
+              ROS_INFO_STREAM("ESTIMATED MAILBOX COORDINATES: (" << coord.first << ", " << coord.second << ")"); 
+              Guaranteed_Pos.push_back(coord);
+              Object_Position.clear();
+              break;
+            }
+          
+          }
+          ROS_INFO_STREAM("Resetting count");
+          count = 0;
+        }
+          
         }
 
         else if (TableCheck(data)){
-          ROS_INFO("TABLE SPOTTED");
-          // pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
-          // Object_Position.push_back(coord); //add the new coordinate point into a vector
-          // ROS_INFO_STREAM("ESTIMATED TABLE COORDINATES: (" << coord.first << ", " << coord.second << ")"); 
+          ROS_INFO_STREAM("TABLE");
+          ROS_INFO_STREAM("Coordinate vector size: " << Object_Position.size());
+          pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
+          Object_Position.push_back(coord); //add the new coordinate point into a vector
+          
+          
+          if(Guaranteed_Pos.size() > 0){
+
+            for(int i = 0; i < Guaranteed_Pos.size(); i++){
+
+              if( ( abs(coord.first - Guaranteed_Pos[i].first) < .5 && abs(coord.second - Guaranteed_Pos[i].second) < .5) ){
+                break;
+              }
+
+            }
+
+          }
+
+        else{
+
+          for(int i = 0; i < Object_Position.size(); i++){
+
+            if( ( abs(coord.first - Object_Position[i].first) < 1 && abs(coord.second - Object_Position[i].second) < 1) ){
+              count++;
+            }
+
+            else if(count == 3){
+              ROS_INFO_STREAM("ESTIMATED TABLE COORDINATES: (" << coord.first << ", " << coord.second << ")"); 
+              Guaranteed_Pos.push_back(coord);
+              Object_Position.clear();
+              break;
+            }
+            ros::Duration(.01).sleep();
+          }
+
+        }
+          count = 0;
         }
         
         //clear the sample array and continue checking
+        if(Object_Position.size() > 50){
+          Object_Position.clear();
+        }
         data.clear();
 
       }  

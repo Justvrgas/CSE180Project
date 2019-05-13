@@ -53,6 +53,7 @@ int main(int argc, char** argv){
     if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED ){
      
       ROS_INFO("Arrived!");
+      ros::Duration(10).sleep();
       randomX = std::rand() % 19 + (-9);
       randomY = std::rand() % 19 + (-9);
       goal.target_pose.pose.position.x = randomX;
@@ -66,6 +67,7 @@ int main(int argc, char** argv){
 
     else if(ac.getState() == actionlib::SimpleClientGoalState::ABORTED || ac.getState() == actionlib::SimpleClientGoalState::PREEMPTED){
         ROS_INFO("FAILED");
+        ros::Duration(5).sleep();
         randomX = std::rand() % 19 + (-9);
         randomY = std::rand() % 19 + (-9);
         goal.target_pose.pose.position.x = randomX;

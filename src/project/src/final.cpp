@@ -196,18 +196,19 @@ int main(int argc, char** argv){
   move_base_msgs::MoveBaseGoal goal;
   int randomX = std::rand() % 19 + (-9);
   int randomY = std::rand() % 19 + (-9);
+  int randori = std::rand() % 2;
   int count = 0;
   vector<Sample> data; //contains lasers that are closely together and also stores their original indeces
   Sample sample;
   vector< pair<float, float> > Object_Position;//a vector that contains the positions of the objects
- 	
+ 	bool cont = false;
 
   //we'll send a random goal point
   goal.target_pose.header.frame_id = "map";
   goal.target_pose.header.stamp = ros::Time::now();  
   goal.target_pose.pose.position.x = randomX;
   goal.target_pose.pose.position.y = randomY;
-  goal.target_pose.pose.orientation.w = 1.0;
+  goal.target_pose.pose.orientation.w = randori;
   ROS_INFO("Moving to point");
   ROS_INFO_STREAM("X: " << goal.target_pose.pose.position.x);
   ROS_INFO_STREAM("Y: " << goal.target_pose.pose.position.y);
@@ -221,13 +222,12 @@ int main(int argc, char** argv){
   
   while(ros::ok()){
 
-    ros::spinOnce();
     mystate = ac.getState();
+
     ROS_INFO_STREAM("My Curr State: " << mystate.toString());
 
-    //made it to a point now laser scan and check for a mailbox
     if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED ){
-     
+
         for(int i = 0; i < laser.ranges.size(); i++){
       
           //if values are close together insert into array
@@ -243,53 +243,12 @@ int main(int argc, char** argv){
           else{
 
             //check if the sample vector is either a mailbox or a table
-            if(ObjectCheck(data)){
-              ROS_INFO_STREAM("Object Spotted!");   
-              count++;
-              rotation.publish(rot);
-
-                data.clear();
-                rot.angular.z = 0;
-                rotation.publish(rot);
-
-                  if(abs(laser.ranges[i] - laser.ranges[i+1]) <= 0.1 && laser.ranges[i] < 5 && laser.ranges[i+1] < 5){
-
-                    sample.original_index = i;
-                    sample.laser_range = laser.ranges[i];
-                    data.push_back(sample);
-
-                  }
-
-                  //cut off the inputed sample vector
-                  else{
-
-                    if(ObjectCheck(data)){
-
-                        if(MailCheck(data)){
-                           ROS_INFO_STREAM("MAILBOX Spotted!");
-                        }
-
-                        else if(TableCheck(data)){
-                          ROS_INFO_STREAM("TABLE Spotted!");
-                        }
-
-
-                    }
-
-                    
-
-                  }
-
-
+            if(MailCheck(data)){
+              ROS_INFO_STREAM("MAILBOX SPOTTED!");   
               // pair<float, float> coord = Object_Points(data); //pair structure coord is the value from the calculations in object_points
               // Object_Position.push_back(coord); //add the new coordinate point into a vector
-              // ROS_INFO_STREAM("ESTIMATED MAILBOX COORDINATES: (" << coord.first << ", " << coord.second << ")");  
-
-             
+              // ROS_INFO_STREAM("ESTIMATED MAILBOX COORDINATES: (" << coord.first << ", " << coord.second << ")");      
             }
-
-
-
 
             else if (TableCheck(data)){
               ROS_INFO("TABLE SPOTTED");
@@ -306,7 +265,12 @@ int main(int argc, char** argv){
 
         }
 
-      //continue on and move to the next point
+        cont = true;
+
+
+    }
+
+    else if(cont){
       ROS_INFO("Arrived!");
       randomX = std::rand() % 19 + (-9);
       randomY = std::rand() % 19 + (-9);
@@ -316,11 +280,9 @@ int main(int argc, char** argv){
       ROS_INFO_STREAM("X: " << goal.target_pose.pose.position.x);
       ROS_INFO_STREAM("Y: " << goal.target_pose.pose.position.y);
       ac.sendGoalAndWait(goal, ros::Duration(60.0));
-      count = 0;
-
+      cont = false;
     }
 
-    //if the robot gets stuck or takes too long to reach the point then skip it and continue on
     else if(ac.getState() == actionlib::SimpleClientGoalState::ABORTED || ac.getState() == actionlib::SimpleClientGoalState::PREEMPTED){
         ROS_INFO("FAILED");
         randomX = std::rand() % 19 + (-9);
