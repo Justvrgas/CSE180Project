@@ -112,7 +112,7 @@ pair<float, float> Object_Points(vector<Sample> data){
 
 int main(int argc,char ** argv) {
 
-	ros::init(argc,argv,"lasertest2");
+	ros::init(argc,argv,"LaserScan");
 	ros::NodeHandle nh;
 
   ros::Subscriber odom_sub = nh.subscribe("/amcl_pose", 1000, &amclCB);

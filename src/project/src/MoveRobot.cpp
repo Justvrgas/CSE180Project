@@ -9,7 +9,7 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseCl
 
 
 int main(int argc, char** argv){
-  ros::init(argc, argv, "moverobot");
+  ros::init(argc, argv, "MoveRobot");
 
   //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
